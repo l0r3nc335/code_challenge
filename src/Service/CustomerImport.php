@@ -37,10 +37,18 @@ class CustomerImport
                 $customer = new Customer();
             }
 
-            $customer->setFirstName($userData['name']['first']);
-            $customer->setLastName($userData['name']['last']);
-            $customer->setEmail($email);
-            // Set other fields...
+            $customer->setGender($userData['gender']);
+            $customer->setName($userData['name']);
+            $customer->setLocation($userData['location']);
+            $customer->setEmail($userData['email']);
+            $customer->setLogin($userData['login']);
+            $customer->setDob($userData['dob']);
+            $customer->setRegistered($userData['registered']);
+            $customer->setPhone($userData['phone']);
+            $customer->setCell($userData['cell']);
+            $customer->setIdentification($userData['id']);
+            $customer->setPicture($userData['picture']);
+            $customer->setNat($userData['nat']);
 
             $this->entityManager->persist($customer);
         }
