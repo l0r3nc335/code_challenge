@@ -72,6 +72,12 @@ class Customer
         return $this->name;
     }
 
+    public function getFullName(): string
+    {
+        $name = $this->getName();
+        return $name['first'] . ' ' . $name['last'];
+    }
+
     public function setName(array $name): static
     {
         $this->name = $name;
@@ -82,6 +88,16 @@ class Customer
     public function getLocation(): array
     {
         return $this->location;
+    }
+
+    public function getCountry(): string
+    {
+        return $this->getLocation()['country'];
+    }
+
+    public function getCity(): string
+    {
+        return $this->getLocation()['city'];
     }
 
     public function setLocation(array $location): static
@@ -106,6 +122,11 @@ class Customer
     public function getLogin(): array
     {
         return $this->login;
+    }
+
+    public function getUsername(): string
+    {
+        return $this->getLogin()['username'];
     }
 
     public function setLogin(array $login): static

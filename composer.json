@@ -68,5 +68,9 @@
             "allow-contrib": false,
             "require": "7.1.*"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.3",
+        "symfony/test-pack": "*"
     }
 }
