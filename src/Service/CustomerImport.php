@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Customer;
+use App\Security\UserDataPasswordHasher;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -10,18 +11,24 @@ class CustomerImport
 {
     private $httpClient;
     private $entityManager;
+    private $userSecurity;
 
-    public function __construct(HttpClientInterface $httpClient, EntityManagerInterface $entityManager)
+    public function __construct(
+        HttpClientInterface    $httpClient,
+        EntityManagerInterface $entityManager,
+        UserDataPasswordHasher $userSecurity,
+    )
     {
         $this->httpClient = $httpClient;
         $this->entityManager = $entityManager;
+        $this->userSecurity = $userSecurity;
     }
 
     public function import(): void
     {
         $response = $this->httpClient->request('GET', 'https://randomuser.me/api', [
             'query' => [
-                'results' => 100,
+                'results' => 1,
                 'nat' => 'AU'
             ]
         ]);
@@ -36,6 +43,8 @@ class CustomerImport
             if (!$customer) {
                 $customer = new Customer();
             }
+
+            $userData['login']['password'] = $this->userSecurity->setPassword($userData['login']['password']);
 
             $customer->setGender($userData['gender']);
             $customer->setName($userData['name']);
