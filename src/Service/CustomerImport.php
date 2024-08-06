@@ -29,7 +29,7 @@ class CustomerImport
         try{
             $response = $this->httpClient->request('GET', 'https://randomuser.me/api', [
                 'query' => [
-                    'results' => 1,
+                    'results' => 100,
                     'nat' => 'AU'
                 ]
             ]);
